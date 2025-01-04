@@ -79,14 +79,6 @@ export class Atom<T> {
 	}
 
 	/**
-	 * Creates a new {@link Atom} that directly stores a value.
-	 * Creates a new {@link Signal} and passes it to {@link from}
-	 * @param v The value to store in the new {@link Signal}
-	 * @param opts The {@link Signal}'s settings
-	 */
-	static value<T>(v: T, opts?: SignalOptions<T>) { return this.from(createSignal(v, opts)); }
-
-	/**
 	 * Creates a new {@link Atom} that throws an error when trying to set it
 	 * @param f The getter for the new {@link Atom}
 	 */
@@ -112,6 +104,18 @@ export class Atom<T> {
 	static prop<T, K extends keyof T>(obj: Accessor<T>, k: (x: NamesOf<T>) => K) {
 		const temp = () => nameOf<T, K>(k);
 		return new this(() => obj()[temp()], v => obj()[temp()] = v);
+	}
+
+	/**
+	 * Creates a new {@link Atom} that directly stores a value.
+	 * Creates a new {@link Signal} and passes it to {@link from}
+	 * @param v The value to store in the new {@link Signal}
+	 * @param opts The {@link Signal}'s settings
+	 */
+	static value<T>(v?: undefined, opts?: SignalOptions<T>): Atom<T | undefined>;
+	static value<T>(v: T, opts?: SignalOptions<T>): Atom<T>;
+	static value<T>(v: T, opts?: SignalOptions<T>) {
+		return this.from(createSignal(v, opts));
 	}
 
 	/**
