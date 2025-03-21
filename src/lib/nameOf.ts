@@ -1,6 +1,6 @@
 
 /** Proxy that handles the core of {@link nameOf} */
-const PROXY: NamesOf<unknown> = new Proxy({}, { get: (_, k) => k });
+const PROXY: NamesOf<unknown> = /* @__PURE__ */ new Proxy({}, { get: (_, k) => k });
 
 /** Type that maps each key of {@link T} to itself */
 export type NamesOf<T> = { readonly [k in keyof T]-?: k };
