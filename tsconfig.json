@@ -1,13 +1,8 @@
 {
-    "include": [ "src/**/*.ts", "src/**/*.tsx" ],
     "compilerOptions": {
         "target": "ESNext",
         "moduleResolution": "Bundler",
         "noImplicitThis": true,
-        "strict": true,
-
-        "jsxImportSource": "solid-js",
-        "types": [ "vite/client" ],
-        "jsx": "preserve"
+        "strict": true
     }
 }
