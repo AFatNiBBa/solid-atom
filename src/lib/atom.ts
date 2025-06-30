@@ -41,15 +41,15 @@ export class Atom<T> {
 
 	/**
 	 * Creates a new {@link Atom} that defers the setter of the current one.
-	 * When the setter is called, it will schedule the value to be set using {@link schedule}.
+	 * When the setter is called, it will schedule the value to be set using {@link scheduler}.
 	 * If the setter gets called again, the previous operation will be cancelled, unless it has already finished
-	 * @param schedule 
+	 * @param scheduler Function that schedules an operation and provides another function to cancel it
 	 */
-	defer(schedule: (f: () => void) => () => void) {
+	defer(scheduler: (f: () => void) => () => void) {
 		var clear = NO_OP;
 		return new Atom(this.get, async v => {
 			clear();
-			await new Promise<void>(t => clear = schedule(t));
+			await new Promise<void>(t => clear = scheduler(t));
 			clear = NO_OP; // I make sure that the next time the setter gets called, it won't cancel the previous operation, since I have no guarantee that the user provided clear function already handles this edge case
 			this.value = v;
 		});
