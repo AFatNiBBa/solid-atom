@@ -28,7 +28,7 @@ interface Identity {
      * const b: (x: string) => number = IDENTITY;
      * // No error
      * ```
-     * It is important to this overload to be defined after the previous one
+     * It is important for this overload to be defined after the previous one
      * @param x The value to be returned
      */
     (x: any): any;
