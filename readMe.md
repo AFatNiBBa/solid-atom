@@ -46,7 +46,7 @@ Object that wraps something that's both readable and writable
 - `from()` (**static**): Creates an `Atom` based on a `Signal`
 - `prop()` (**static**): Creates an `Atom` based on an object property
 - `value()` (**static**): Creates a new `Atom` that directly stores a value
-- `source()` (**static**): Similiar to `Atom.unwrap()`, but if the `Accessor` doesn't return anything it automatically creates an internal `Signal` in which to store the value
+- `source()` (**static**): Similiar to `Atom.unwrap()`, but if the `Accessor` doesn't return anything it automatically creates an internal `Atom` in which to store the value
 
 ### Utility
 The module also exposes some of its internal utilities

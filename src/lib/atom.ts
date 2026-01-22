@@ -120,13 +120,13 @@ export class Atom<T> {
 
 	/**
      * Creates a bindable data source.
-     * If {@link bind} returns an {@link Atom} it gets wrapped, otherwise it creates a {@link Signal} using {@link f} and uses it to store the value until {@link bind}'s value changes
+     * If {@link bind} returns an {@link Atom} it gets wrapped, otherwise it creates a {@link Atom} using {@link f} and uses it to store the value until {@link bind}'s value changes
      * @param bind The bound {@link Atom}
-     * @param f The function that will create the actual {@link Signal} that will store the {@link Atom}'s data in case that {@link bind} doesn't return anything
+     * @param f The function that will create the actual {@link Atom} that will store the data in case that {@link bind} doesn't return anything
      */
 	static source<T>(bind: Accessor<Atom<T> | undefined>): Atom<T | undefined>;
-	static source<T>(bind: Accessor<Atom<T> | undefined>, f: Accessor<Signal<T>>): Atom<T>;
-	static source<T>(bind: Accessor<Atom<T> | undefined>, f: Accessor<Signal<T | undefined>> = createSignal<T>) {
-		return this.unwrap(createMemo(on(bind, x => x as Atom<T | undefined> ?? this.from(f()))));
+	static source<T>(bind: Accessor<Atom<T> | undefined>, f: Accessor<Atom<T>>): Atom<T>;
+	static source<T>(bind: Accessor<Atom<T> | undefined>, f: Accessor<Atom<T | undefined>> = this.value<T>) {
+		return this.unwrap(createMemo(on(bind, x => x as Atom<T | undefined> ?? f())));
 	}
 }
