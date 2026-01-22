@@ -82,19 +82,19 @@ export class Atom<T> {
 	 * Creates a new {@link Atom} that throws an error when trying to set it
 	 * @param f The getter for the new {@link Atom}
 	 */
-	static readOnly<T>(f: Accessor<T>) { return new this(f, THROW); }
+	static readOnly<T>(f: Accessor<T>) { return new Atom(f, THROW); }
 
     /**
      * Creates an {@link Atom} that forwards an {@link Accessor} to another {@link Atom}
      * @param f The reactive {@link Accessor} to the {@link Atom} to forward
      */
-	static unwrap<T>(f: Accessor<Atom<T>>) { return new this(() => f().value, v => f().value = v); }
+	static unwrap<T>(f: Accessor<Atom<T>>) { return new Atom(() => f().value, v => f().value = v); }
 
     /**
      * Creates an {@link Atom} based on a {@link Signal}
      * @param param0 The {@link Signal} to forward
      */
-	static from<T>([ get, set ]: Signal<T>) { return new this(get, v => set(() => v)); }
+	static from<T>([ get, set ]: Signal<T>) { return new Atom(get, v => set(() => v)); }
 
 	/**
 	 * Creates an {@link Atom} based on an object property
@@ -103,7 +103,7 @@ export class Atom<T> {
 	 */
 	static prop<T, K extends keyof T>(obj: Accessor<T>, k: (x: NamesOf<T>) => K) {
 		const temp = () => nameOf<T, K>(k);
-		return new this(() => obj()[temp()], v => obj()[temp()] = v);
+		return new Atom(() => obj()[temp()], v => obj()[temp()] = v);
 	}
 
 	/**
@@ -115,7 +115,7 @@ export class Atom<T> {
 	static value<T>(v?: undefined, opts?: SignalOptions<T>): Atom<T | undefined>;
 	static value<T>(v: T, opts?: SignalOptions<T>): Atom<T>;
 	static value<T>(v: T, opts?: SignalOptions<T>) {
-		return this.from(createSignal(v, opts));
+		return Atom.from(createSignal(v, opts));
 	}
 
 	/**
@@ -126,7 +126,7 @@ export class Atom<T> {
      */
 	static source<T>(bind: Accessor<Atom<T> | undefined>): Atom<T | undefined>;
 	static source<T>(bind: Accessor<Atom<T> | undefined>, f: Accessor<Atom<T>>): Atom<T>;
-	static source<T>(bind: Accessor<Atom<T> | undefined>, f: Accessor<Atom<T | undefined>> = this.value<T>) {
-		return this.unwrap(createMemo(on(bind, x => x as Atom<T | undefined> ?? f())));
+	static source<T>(bind: Accessor<Atom<T> | undefined>, f: Accessor<Atom<T | undefined>> = Atom.value<T>) {
+		return Atom.unwrap(createMemo(on(bind, x => x as Atom<T | undefined> ?? f())));
 	}
 }
