@@ -19,27 +19,10 @@ interface Identity {
     /**
      * Returns the passed value
      * -
-     * Allows the function to be used to fake any conversion.
-     * Example:
-     * ```ts
-     * const a = IDENTITY(12);
-     * //    ^? 12
-     * 
-     * const b: (x: string) => number = IDENTITY;
-     * // No error
-     * ```
-     * It is important for this overload to be defined after the previous one
-     * @param x The value to be returned
-     */
-    (x: any): any;
-
-    /**
-     * Returns the passed value
-     * -
      * Allows you to extend a specific instance rather than a class.
      * Private field example:
      * ```ts
-     * class Something extends IDENTITY {
+     * class Something extends IDENTITY<object> {
      *     #value = 12;
      * 
      *     static get(obj: object) { return (obj as Something).#value; }
@@ -66,5 +49,5 @@ interface Identity {
      * ```
      * @param x The value to be returned
      */
-    new<T = object>(x: T): T;
+    new<T extends object>(x: T): T;
 }

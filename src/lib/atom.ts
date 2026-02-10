@@ -34,9 +34,10 @@ export class Atom<T> {
      * @param f Function that creates a new value based on the current one
 	 * @returns Whatever {@link f} returned
      */
-	update<V extends T>(f: (prev: T) => V = IDENTITY): V {
-		const out = f(untrack(this.get));
-		return this.set(out), out;
+	update<V extends T>(f?: (prev: T) => V): V {
+		const prev = untrack(this.get);
+		const next = f ? f(prev) : prev as V;
+		return this.set(next), next;
 	}
 
 	/**
