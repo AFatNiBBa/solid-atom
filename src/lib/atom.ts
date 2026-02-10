@@ -1,10 +1,12 @@
 
 import { Accessor, MemoOptions, Setter, Signal, SignalOptions, createMemo, createSelector, createSignal, equalFn, on, untrack } from "solid-js";
 import { NamesOf, nameOf } from "./nameOf";
-import { IDENTITY, NO_OP } from "./util";
 
 /** Function that throws an error stating the current {@link Atom} can't be set */
 const THROW = () => { throw new ReferenceError(`No setter was defined for the current ${JSON.stringify(Atom.name)}`); };
+
+/** Function that does nothing */
+export const NO_OP = () => { };
 
 /** Reactive atomic value without the inconveniences of {@link Signal} */
 export class Atom<T> {

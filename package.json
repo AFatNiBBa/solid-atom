@@ -1,6 +1,6 @@
 {
   "name": "solid-atom",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Simple two way reactive bindings",
   "author": "AFatNiBBa",
   "license": "ISC",

@@ -53,7 +53,6 @@ The module also exposes some of its internal utilities
 - `NamesOf`: Utility type that powers `nameOf()`
 - `nameOf()`: Utility function that powers `Atom.prop()`
 - `NO_OP`: Function that does nothing
-- `IDENTITY`: Function that returns passed value and can be used as a class
 
 ## Why
 Two way bindings are annoying to do in **"solid-js"**, here are some things that I personally tried doing
