@@ -41,6 +41,7 @@ Object that wraps something that's both readable and writable
 - `update()`: Like the `Setter` overload of a `Signal` that takes a function with the previous value
 - `defer()`: Creates a new `Atom` that defers the setter of the current one
 - `selector()`: Two way version of `createSelector()`
+- `compare()` (**static**): Checks two `Atom`s for equality
 - `readOnly()` (**static**): Creates a new `Atom` that throws an error when trying to set it
 - `unwrap()` (**static**): Allows the use of an `Accessor` of an `Atom` without having to call the `Accessor` each time
 - `from()` (**static**): Creates an `Atom` based on a `Signal`

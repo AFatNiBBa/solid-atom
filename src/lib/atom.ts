@@ -82,6 +82,14 @@ export class Atom<T> {
 	}
 
 	/**
+	 * Checks two {@link Atom}s for equality
+	 * @param a The first element to compare
+	 * @param b The second element to compare
+	 * @param compare Custom comparator function that will be applied to the values of {@link a} and {@link b}
+	 */
+	static compare<T>(a: Atom<T>, b: Atom<T>, compare = equalFn<T>) { return compare(a.value, b.value); }
+
+	/**
 	 * Creates a new {@link Atom} that throws an error when trying to set it
 	 * @param f The getter for the new {@link Atom}
 	 */
