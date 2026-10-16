@@ -8,7 +8,7 @@ import { createSignal } from "solid-js";
 import { Atom } from "solid-atom";
 
 function Counter(props: { atom?: Atom<number> }) {
-    const atom = Atom.source(() => props.atom, () => createSignal(12));
+    const atom = Atom.source(() => props.atom, () => Atom.value(12));
     return <>
         <button onClick={() => atom.value++}>
             {atom.value}
@@ -132,7 +132,7 @@ Two way bindings are annoying to do in **"solid-js"**, here are some things that
         ```ts
         const atom = Atom.source(() => props.atom);         // (Starts at `undefined` if there's no `Atom` from the user)
         // Or
-        const atom = Atom.source(() => props.atom, () => createSignal(defaultValue));
+        const atom = Atom.source(() => props.atom, () => Atom.value(defaultValue));
         ```
         - If the user doesn't provide `props.atom`, a `Signal` will be created to store the actual value
         - If the user provides `props.atom`, both its getter and setter will symply be forwarded (No synchronization)
